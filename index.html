@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Livestream</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="video-container">
+      <video
+        id="amazon-ivs-videojs"
+        class="video-js vjs-4-3 vjs-big-play-centered"
+        controls
+        autoplay
+        playsinline
+      ></video>
+      <div class="viewer-container">
+        <img
+          src="https://i.imgur.com/Lk9FjYi.png"
+          alt="Viewer"
+          class="viewer-icon"
+        />
+        <div class="viewer-count">
+          <span class="count">100</span>
+          <span class="text">Viewers</span>
+        </div>
+      </div>
+      <div class="offline-container">
+        <img src="https://i.imgur.com/zmH98Pu.png" alt="Offline" />
+      </div>
+    </div>
+    <div class="video-container">
+      <video
+        id="amazon-ivs-videojs-1"
+        class="video-js vjs-4-3 vjs-big-play-centered"
+        controls
+        autoplay
+        playsinline
+      ></video>
+      <div class="viewer-container">
+        <img
+          src="https://i.imgur.com/Lk9FjYi.png"
+          alt="Viewer"
+          class="viewer-icon"
+        />
+        <div class="viewer-count">
+          <span class="count">100</span>
+          <span class="text">Viewers</span>
+        </div>
+      </div>
+      <div class="offline-container">
+        <img src="https://i.imgur.com/zmH98Pu.png" alt="Offline" />
+      </div>
+    </div>
+
+    <div class="video-container">
+      <video
+        id="amazon-ivs-videojs-2"
+        class="video-js vjs-4-3 vjs-big-play-centered"
+        controls
+        autoplay
+        playsinline
+      ></video>
+      <div class="viewer-container">
+        <img
+          src="https://i.imgur.com/Lk9FjYi.png"
+          alt="Viewer"
+          class="viewer-icon"
+        />
+        <div class="viewer-count">
+          <span class="count">100</span>
+          <span class="text">Viewers</span>
+        </div>
+      </div>
+      <div class="offline-container">
+        <img src="https://i.imgur.com/zmH98Pu.png" alt="Offline" />
+      </div>
+    </div>
+    <style>
+      .viewer-container {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+      }
+
+      .viewer-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+      }
+
+      .viewer-count {
+        font-weight: bold;
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: black;
+      }
+
+      .viewer-count .count {
+        font-size: 24px;
+        margin-bottom: 5px;
+      }
+    </style>
+    <body>
+      <style>
+        body {
+          margin: 0;
+          overflow: hidden;
+        }
+
+        .video-container {
+          width: 100%;
+          height: 100%;
+          margin: auto;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .offline-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: black;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .offline-container img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      </style>
+    </body>
+
+    <script>
+      (function play() {
+        // Get playback URL from Amazon IVS API
+        var PLAYBACK_URL =
+          "";
+
+        // Register Amazon IVS as playback technology for Video.js
+        registerIVSTech(videojs);
+
+        // Initialize player
+        var player = videojs(
+          "amazon-ivs-videojs",
+          {
+            techOrder: ["AmazonIVS"],
+          },
+          () => {
+            console.log("Player is ready to use!");
+            // Play stream
+            player.src(PLAYBACK_URL);
+          }
+        );
+
+        player.getIVSPlayer().addEventListener("error", function (event) {
+          console.log("Error occurred", event);
+          // Switch to offline screen
+          player.pause();
+          document.querySelector(".video-container").style.display = "none";
+          document.querySelector(".offline-container").style.display = "block";
+        });
+
+        player.on("loadedmetadata", function () {
+          console.log("Player metadata loaded!");
+          console.log("Player ready state:", player.readyState());
+          // Switch to live stream
+          player.play();
+          document.querySelector(".offline-container").style.display = "none";
+          document.querySelector(".video-container").style.display = "block";
+        });
+      })();
+    </script>
+  </body>
+</html>
