@@ -147,3 +147,62 @@
     </script>
   </body>
 </html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Follow Button Example</title>
+    <style>
+      .follow-btn {
+        background-color: #FFA500;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .followed-btn {
+        background-color: #2ecc71;
+      }
+      .followed-btn:focus {
+        outline: none;
+      }
+      .followed-btn:hover {
+        background-color: #27ae60;
+      }
+      .followed-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+      }
+      .bell-icon {
+        width: 20px;
+        height: 20px;
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="follow-btn" onclick="follow()">
+      <img src="https://i.imgur.com/I9To0ln.png" alt="Follow" class="follow-icon" />
+      Follow
+    </button>
+
+    <script>
+      function follow() {
+        var btn = document.querySelector(".follow-btn");
+        btn.classList.add("followed-btn");
+        btn.innerHTML =
+          '<img src="https://i.imgur.com/TPTaKsu.png" alt="Followed" class="followed-icon" />Followed <img src="https://i.imgur.com/yMroBdJ.png" alt="Bell" class="bell-icon" />';
+        btn.onclick = unfollow;
+      }
+
+      function unfollow() {
+        var btn = document.querySelector(".follow-btn");
+        btn.classList.remove("followed-btn");
+        btn.innerHTML =
+          '<img src="https://i.imgur.com/I9To0ln.png" alt="Follow" class="follow-icon" />Follow';
+        btn.onclick = follow;
+      }
+    </script>
+  </body>
+</html>
